@@ -176,6 +176,7 @@ If running locally, download the project, and run
 ## Author
 
 Developed by: Ian Swartz 
+
 GitHub: https://github.com/ian-swartz
 
 ---
