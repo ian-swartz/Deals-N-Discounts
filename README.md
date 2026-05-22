@@ -139,6 +139,7 @@ This project is deployed as a live portfolio application and is actively maintai
 │   └── login.ejs
 ├── app.js
 ├── index.html
+├── LICENSE
 ├── login.html
 ├── model_order.js
 ├── model_product.js
