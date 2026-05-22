@@ -137,7 +137,6 @@ This project is deployed as a live portfolio application and is actively maintai
 │   └── products.js
 ├── views
 │   └── login.ejs
-├── README.md
 ├── app.js
 ├── index.html
 ├── login.html
@@ -149,6 +148,7 @@ This project is deployed as a live portfolio application and is actively maintai
 ├── package.json
 ├── products_real_titles.json
 ├── products.html
+├── README.md
 ├── README(project).txt
 ├── script.js
 ├── Sources.txt
