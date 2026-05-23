@@ -1,4 +1,12 @@
-/* Worked on by: Tanner */
+/*
+ * Filename: order.css
+ * Authors: Tanner Ness, Ian Swartz
+ * Creation Date: 2025-10-27
+ * Last Edit Date: 2026-23-05
+ * Class: CMSC 421 Web Development
+ * Description: contains css information for order (cart) page, mainly form design
+ */
+
 * {
   margin: 0;
   padding: 0;
