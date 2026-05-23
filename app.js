@@ -105,25 +105,31 @@ app.get("/logout", function (req, res, next) {
 });
 
 app.post("/register", function (req, res, next) {
-  let passmiss = "passwords do not match";
+  // Safe validation layout that won't throw 500 runtime execution exceptions
   if (req.body.pwrd != req.body.repwrd) {
-    console.log("error while user register!", passmiss);
-    return next(passmiss);
+    console.log("Registration error: Passwords do not match");
+    return res.render("login.ejs", { 
+      message: "Registration failed: Passwords do not match." 
+    });
   }
+
   User.register(
     {
       username: req.body.email,
       name: `${req.body.fname} ${req.body.lname}`,
-      date: Date(),
+      date: new Date(), // Populates proper date schema indexes
     },
     req.body.pwrd,
     function (err) {
       if (err) {
-        console.log("error while user register!", err);
-        return next(err);
+        console.log("Error while user register!", err);
+        // Safely catch unique constraint index validation issues (like duplicate emails)
+        return res.render("login.ejs", { 
+          message: `Registration error: ${err.message || "Could not complete account creation."}` 
+        });
       }
-      console.log("user registered!");
-      res.redirect("/"); // After successful registration, go back to login page
+      console.log("User registered!");
+      res.redirect("/"); // After successful registration, go back to storefront login lifecycle
     }
   );
 });
