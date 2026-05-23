@@ -4,7 +4,7 @@
  * Creation Date: 2025-10-21
  * Last Edit Date: 2026-05-23
  * Class: CMSC 421 Web Development
- * Description: JS file for products page - API-driven
+ * Description: JS file for products page - API-driven with defensive mapping
  */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -28,17 +28,20 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("/products")
     .then((response) => response.json())
     .then((data) => {
-      // Data from API is expected to be an array
-      const products = data.map((item, index) => ({
-        id: index + 1, // Retaining index-based ID for your URL structure
-        title: item.fields.title,
-        price: item.fields.price,
-        category: item.fields.category,
-        description: item.fields.description || "",
-        stock: item.fields.stock || 0,
-        // Safe access to image URL
-        image: item.fields.image?.fields?.file?.url || "../images/placeholder.jpg",
-      }));
+      // Defensive mapping to handle both nested 'fields' or flat database objects
+      const products = data.map((item, index) => {
+        const source = item.fields ? item.fields : item;
+        
+        return {
+          id: index + 1,
+          title: source.title || "No Title",
+          price: source.price || 0,
+          category: source.category || "General",
+          description: source.description || "",
+          stock: source.stock || 0,
+          image: source.image?.fields?.file?.url || "../images/placeholder.jpg",
+        };
+      });
 
       // -----------------------------------
       // NO PRODUCT SELECTED
@@ -65,13 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
       noProductMessage.classList.add("hidden");
       productGrid.classList.remove("hidden");
 
-      // Fill details
+      // Fill product details
       document.getElementById("productTitle").innerHTML = `<h2>${product.title}</h2>`;
       document.getElementById("productPrice").textContent = `$${product.price.toFixed(2)}`;
       document.getElementById("productDescription").textContent = product.description;
       document.getElementById("productStock").textContent = `In Stock: ${product.stock}`;
       document.getElementById("productCategory").textContent = `Category: ${product.category}`;
 
+      // Image Handling
       document.getElementById("productImage").innerHTML = `
         <img src="${product.image}" alt="${product.title}" 
              onerror="this.src='../images/placeholder.jpg'">
@@ -101,6 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
       recommendedSection.classList.add("hidden");
     });
 
+  // -----------------------------------
+  // FUNCTIONS
+  // -----------------------------------
   function renderRecommendedProducts(products, currentProduct) {
     recommendedSection.classList.remove("hidden");
     recommendedGrid.innerHTML = "";
