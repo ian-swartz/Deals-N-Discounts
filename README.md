@@ -170,48 +170,47 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
 
 ### Local Setup Instructions
 
-### 1. **Clone the Repository:**
+#### 1. **Clone the Repository:**
 
    ```bash
    git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/ian-swartz/Deals-N-Discounts.git)
    cd Deals-N-Discounts
    ```
 
-### 2. **Install Dependencies:**
+#### 2. **Install Dependencies:**
 
    Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
-### 3. **Configure Environment Variables:**
+#### 3. **Configure Environment Variables:**
 
    Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
 
-    ```bash
-    PORT=5000
-    MONGODB_URI=your_mongodb_atlas_connection_string
-    SESSION_SECRET=your_local_session_encryption_secret
-    ```
-    > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
+   ```bash
+   PORT=5000
+   MONGODB_URI=your_mongodb_atlas_connection_string
+   SESSION_SECRET=your_local_session_encryption_secret
+   ```
+   > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
 
-### 4. **RUN the Application:**
+#### 4. **Run the Application:**
    
    Start the Express server locally:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
-### 5. **Access the Storefront:**
+#### 5. **Access the Storefront:**
     
    Open your preferred web browser and navigate to:
 
-    ```
-    https://localhost:5000
-    ```
-
+   ```
+   https://localhost:5000
+   ```
 
 ---
 
