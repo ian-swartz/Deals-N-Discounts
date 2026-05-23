@@ -161,7 +161,7 @@ This project is deployed as a live portfolio application and is actively maintai
 ## Running the project
 
 You can view the live, production version of this application hosted on Render here: 
-**https://deals-n-discounts.onrender.com**
+**[Live Demo Link](https://deals-n-discounts.onrender.com)**
 
 
 To set up the project locally for development and testing, follow the steps below.
@@ -172,14 +172,14 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
 
 ### Local Setup Instructions
 
-1. **Clone the Repository:**
+### 1. **Clone the Repository:**
 
    ```bash
    git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/ian-swartz/Deals-N-Discounts.git)
    cd Deals-N-Discounts
    ```
 
-2. **Install Dependencies:**
+### 2. **Install Dependencies:**
 
    Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
 
@@ -187,7 +187,7 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
     npm install
     ```
 
-3. **Configure Environment Variables:**
+### 3. **Configure Environment Variables:**
 
    Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
 
@@ -198,7 +198,7 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
     ```
     > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
 
-4. **RUN the Application:**
+### 4. **RUN the Application:**
    
    Start the Express server locally:
 
@@ -206,7 +206,7 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
     npm start
     ```
 
-5. **Access the Storefront:**
+### 5. **Access the Storefront:**
     
    Open your preferred web browser and navigate to:
 
