@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
-// Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://db_user_1:dIv4stk44rAE1CCs@cluster0.j2fdqzg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-);
+// REMOVED THE HARDCODED CONNECT STRING THAT WAS HIJACKING THE ROUTE
 
 // Define schema matching the JSON structure
 const Product = new mongoose.Schema({
