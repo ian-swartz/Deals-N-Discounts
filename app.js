@@ -54,9 +54,14 @@ mongoose.connect(dbURI)
         const raw = fs.readFileSync(productsFilePath, "utf8");
         const data = JSON.parse(raw);
 
-        // data.items matches your structural array of 100 products exactly
-        await Product.insertMany(data.items);
-        console.log(`Database successfully populated with ${data.items.length} products.`);
+        // FIX: Insert each product object individually so they become separate documents in MongoDB
+        if (data.items && Array.isArray(data.items)) {
+          await Product.insertMany(data.items);
+          console.log(`Database successfully populated with ${data.items.length} individual products.`);
+        } else if (Array.isArray(data)) {
+          await Product.insertMany(data);
+          console.log(`Database successfully populated with ${data.length} individual products.`);
+        }
       } else {
         console.log(`Products collection already populated with ${count} items. Skipping seeding.`);
       }
