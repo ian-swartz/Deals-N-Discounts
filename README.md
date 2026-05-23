@@ -179,17 +179,17 @@ Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git ins
    cd Deals-N-Discounts
    ```
 
-3. **Install Dependencies:**
+2. **Install Dependencies:**
 
-Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
+   Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
 
     ```bash
     npm install
     ```
 
-5. **Configure Environment Variables:**
+3. **Configure Environment Variables:**
 
-Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
+   Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
 
     ```bash
     PORT=5000
@@ -198,17 +198,17 @@ Create a file named ```.env``` in the root directory of the project and add your
     ```
     > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
 
-7. **RUN the Application:**
+4. **RUN the Application:**
    
-Start the Express server locally:
+   Start the Express server locally:
 
     ```bash
     npm start
     ```
 
-9. **Access the Storefront:**
+5. **Access the Storefront:**
     
-Open your preferred web browser and navigate to:
+   Open your preferred web browser and navigate to:
 
     ```
     https://localhost:5000
