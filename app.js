@@ -202,11 +202,20 @@ app.post("/orders", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const items = (req.body.cart ?? []).map((item) => ({
-      product_id: item.product_id,
-      quantity: Number(item.quantity),
-      price_cents: Math.round(Number(item.price) * 100),
-    }));
+    const rawCart = req.body.cart ?? [];
+    const items = [];
+
+    // Loop through cart items to find and attach their real titles from the database
+    for (const item of rawCart) {
+      const dbProduct = await Product.findOne({ "sys.id": String(item.product_id) }).session(session);
+      
+      items.push({
+        product_id: item.product_id,
+        title: dbProduct ? dbProduct.fields.title : "Unknown Product", // Attaches the actual title dynamically
+        quantity: Number(item.quantity),
+        price_cents: Math.round(Number(item.price) * 100),
+      });
+    }
 
     const order = new Order({
       user_id: req.user._id.toString(),
