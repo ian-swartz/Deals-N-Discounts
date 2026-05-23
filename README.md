@@ -116,11 +116,10 @@ This project is deployed as a live portfolio application and is actively maintai
 │   └── styles.css
 ├── images
 │   ├── screenshots
-|   │   ├── cart.png
-|   │   ├── home.png
-|   │   ├── login.png
-|   │   ├── product.png
-│   │   └── products-page.png
+│   │   ├── cart.png
+│   │   ├── home.png
+│   │   ├── login.png
+│   │   └── product.png
 │   ├── logo.webp
 │   ├── product1.jpg
 │   ├── product2.jpg
@@ -153,6 +152,7 @@ This project is deployed as a live portfolio application and is actively maintai
 ├── script.js
 ├── Sources.txt
 └── yarn.lock
+
 
 ```
 
