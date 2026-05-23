@@ -29,17 +29,32 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("/products")
     .then((response) => response.json())
     .then((dbItems) => {
-      // Map database schema elements to structured frontend objects
-      const products = dbItems.map((item) => ({
-        id: String(item.sys.id), // Persist true unique identifier string for orders
-        title: item.fields.title,
-        price: item.fields.price,
-        category: item.fields.category,
-        description: item.fields.description || "",
-        stock: item.fields.stock ?? 0,
-        // Pull path dynamically from schema definition or default to custom placeholder
-        image: item.fields.image?.fields?.file?.url || '../images/placeholder.jpg', 
-      }));
+      // Map database schema elements defensively, adapting to both flat or nested JSON objects
+      const products = dbItems.map((item) => {
+        // Fallback checks: Use item.sys.id if nested, then look for direct ID attributes, then fall back to MongoDB's core _id
+        const productId = item.sys?.id || item.id || item._id;
+        
+        // Check if properties live inside a "fields" property block, or are flat on the root document
+        const fields = item.fields || item; 
+
+        // Extract image path cleanly depending on structure rules
+        let imgPath = '../images/placeholder.jpg';
+        if (item.fields?.image?.fields?.file?.url) {
+          imgPath = item.fields.image.fields.file.url;
+        } else if (item.image) {
+          imgPath = item.image;
+        }
+
+        return {
+          id: String(productId), 
+          title: fields.title || "Unnamed Product",
+          price: fields.price || 0,
+          category: fields.category || "General",
+          description: fields.description || "",
+          stock: fields.stock ?? 0,
+          image: imgPath
+        };
+      });
 
       // -----------------------------------
       // NO PRODUCT SELECTED
