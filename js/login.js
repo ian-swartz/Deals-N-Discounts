@@ -1,10 +1,10 @@
 /*
  * Filename: login.js
- * Authors: John Hershey, Tanner Ness
+ * Authors: John Hershey, Tanner Ness, Ian Swartz
  * Creation Date: 2025-10-21
- * Last Edit Date: 2025-12-05
+ * Last Edit Date: 2026-05-23
  * Class: CMSC 421 Web Development
- * Description: contains code for login page
+ * Description: contains code for login page securely configured with relative paths
  */
 
 const first_Name = document.getElementById("fname");
@@ -20,7 +20,8 @@ let signupform = document.getElementById("signupform");
 let loginform = document.getElementById("loginform");
 let logintext = document.getElementById("txt");
 signupform.style.display = "none";
-//when page is loaded and user is logged in will show user account
+
+// when page is loaded and user is logged in will show user account
 showAccount();
 
 // Check if both passwords match
@@ -111,9 +112,11 @@ function invalid_login_popup() {
 function passwords_not_match() {
   alert("Passwords do not match");
 }
+
 function showAccount() {
   const XMLreq = new XMLHttpRequest();
-  XMLreq.open("GET", "http://localhost:5000/user", true);
+  // FIXED: Changed absolute localhost URL to relative endpoint routing
+  XMLreq.open("GET", "/user", true);
   XMLreq.send();
   XMLreq.onreadystatechange = function () {
     if (XMLreq.readyState == 4 && XMLreq.status == 200) {
@@ -121,7 +124,7 @@ function showAccount() {
         const user = JSON.parse(XMLreq.response).user;
         console.log("logged in");
         accountdata.style.display = "inline-block";
-        signupform.style.display = "none"; //blank out the other forms
+        signupform.style.display = "none"; // blank out the other forms
         loginform.style.display = "none";
         logintext.innerText = "Your Account:";
         // set account data elements
