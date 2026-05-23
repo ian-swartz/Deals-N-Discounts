@@ -5,7 +5,7 @@ A full-stack e-commerce application built with Node.js, Express, and MongoDB, de
 
 Users can browse products, search by category, manage a shopping cart, create accounts, and place orders with persistent storage using MongoDB.
 
-> Note: The README.md file that goes with the project is separetley titled README(project).txt which was included as part of the assignment, but also shows a way to run the project locally (instructions also included at the bottom of this README.md file), along with original project team contributions.
+> Note: The README.md file that goes with the project is separetley titled README(project).txt which was included as part of the assignment, but also shows a way to run the project locally, along with original project team contributions.
 
 
 ## Live Demo
@@ -159,17 +159,60 @@ This project is deployed as a live portfolio application and is actively maintai
 ---
 
 ## Running the project
-Paste "https://codesandbox.io/p/sandbox/serene-tamas-d6gnqp" in a browser.
 
-If running locally, download the project, and run
+You can view the live, production version of this application hosted on Render here: 
+**[Live Demo Link](https://deals-n-discounts.onrender.com)**
 
-```bash
-    tar -xf <projectzipfilename>.zip
-    npm install yarn --global
-    yarn install
-    node app.js
-```
-**CHANGE LATER IF PUT ON REDNER**
+To set up the project locally for development and testing, follow the steps below.
+
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git installed on your machine.
+
+### Local Setup Instructions
+
+1. **Clone the Repository:**
+   ```bash
+   git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/ian-swartz/Deals-N-Discounts.git)
+   cd Deals-N-Discounts
+   ```
+
+2. **Install Dependencies:**
+Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
+    ```bash
+    npm install
+    ```
+
+3. **Configure Environment Variables:**
+Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
+    ```bash
+    PORT=5000
+    MONGODB_URI=your_mongodb_atlas_connection_string
+    SESSION_SECRET=your_local_session_encryption_secret
+    ```
+    > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
+
+4. **RUN the Application:**
+Start the Express server locally:
+    ```bash
+    npm start
+    ```
+
+5. **Access the Storefront:**
+Open your preferred web browser and navigate to:
+    ```
+    https://localhost:5000
+    ```
+
+---
+
+## Key Improvements (Post-Migration)
+
+- Migrated from CodeSandbox → GitHub
+- Implemented MongoDB Atlas integration
+  - Had to relink to database
+  - Restructured so the connect string (secret) wasn't hard coded/visible 
+- When users register then no longer have to relogin
+- Fixed some styling and bugs regarding linking to the database
 
 ---
 
