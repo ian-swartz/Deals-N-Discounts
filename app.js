@@ -120,7 +120,7 @@ app.post("/register", function (req, res, next) {
       date: new Date(), // Populates proper date schema indexes
     },
     req.body.pwrd,
-    function (err) {
+    function (err, user) { // Added 'user' placeholder parameter to intercept the saved profile
       if (err) {
         console.log("Error while user register!", err);
         // Safely catch unique constraint index validation issues (like duplicate emails)
@@ -128,8 +128,19 @@ app.post("/register", function (req, res, next) {
           message: `Registration error: ${err.message || "Could not complete account creation."}` 
         });
       }
-      console.log("User registered!");
-      res.redirect("/"); // After successful registration, go back to storefront login lifecycle
+      
+      console.log("User registered successfully via Mongoose schema!");
+
+      // FIX: Establish an authorized backend session passport pipeline immediately upon validation
+      req.logIn(user, function (loginErr) {
+        if (loginErr) {
+          console.error("Session authentication setup failed post-registration:", loginErr);
+          return next(loginErr);
+        }
+        
+        console.log("Active registration session bound. Redirecting back to storefront...");
+        res.redirect("/"); // When they hit index, script.js can now query the /user session perfectly!
+      });
     }
   );
 });
@@ -289,5 +300,5 @@ async function updateProductStock(cartItems) {
 
 // ************************* RUN THE SERVER ***********************
 app.listen(port, () => {
-  console.log(`Server is running dynamically on port ${port}`);
+  console.log("Server is running dynamically on port " + port);
 });
