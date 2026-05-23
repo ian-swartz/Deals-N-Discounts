@@ -2,9 +2,9 @@
  * Filename: products.js
  * Authors: Jacob Karasow, Ian Swartz, John Hershey
  * Creation Date: 2025-10-21
- * Last Edit Date: 2025-12-08
- * Class: CMSC 421 Web Development
- * Description: JS file for products page
+ * Last Edit Date: 2026-05-23
+ * Class: CMSC 421 Web Application Development
+ * Description: JS file for products page connected to the MongoDB backend API
  *
  */
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // GET PRODUCT ID FROM URL
   // -----------------------------------
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = parseInt(urlParams.get("id"), 10);
+  const productId = urlParams.get("id"); // Kept as a string to match MongoDB/JSON sys.id format
 
   // -----------------------------------
   // PAGE SECTIONS
@@ -24,19 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const recommendedGrid = document.getElementById("recommendedGrid");
 
   // -----------------------------------
-  // FETCH PRODUCT LIST
+  // FETCH PRODUCT LIST FROM MONGODB BACKEND
   // -----------------------------------
-  fetch("../products_real_titles.json")
+  fetch("/products")
     .then((response) => response.json())
-    .then((data) => {
-      const products = data.items.map((item, index) => ({
-        id: index + 1,
+    .then((dbItems) => {
+      // Map database schema elements to structured frontend objects
+      const products = dbItems.map((item) => ({
+        id: String(item.sys.id), // Persist true unique identifier string for orders
         title: item.fields.title,
         price: item.fields.price,
         category: item.fields.category,
         description: item.fields.description || "",
-        stock: item.fields.stock || 0,
-        image: `../images/product${index + 1}.jpg`, // main product images
+        stock: item.fields.stock ?? 0,
+        // Pull path dynamically from schema definition or default to custom placeholder
+        image: item.fields.image?.fields?.file?.url || '../images/placeholder.jpg', 
       }));
 
       // -----------------------------------
@@ -53,7 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // -----------------------------------
       // PRODUCT SELECTED
       // -----------------------------------
-      const product = products[productId - 1];
+      // Use array find to locate the string-based sys.id
+      const product = products.find((p) => p.id === String(productId));
+      
       if (!product) {
         noProductMessage.innerHTML = "<h2>Product Not Found</h2>";
         noProductMessage.classList.remove("hidden");
@@ -96,8 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
       // -----------------------------------
       const addButton = document.getElementById("addToCart");
       if (product.stock > 0) {
-        addButton.addEventListener("click", function () {
+        // Clone button to drop old stale event listeners on page re-renders
+        const newAddButton = addButton.cloneNode(true);
+        addButton.parentNode.replaceChild(newAddButton, addButton);
+
+        newAddButton.addEventListener("click", function () {
           let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+          // Pushes the genuine sys.id string so the database transaction can locate it later
           cart.push(product.id);
           localStorage.setItem("cart", JSON.stringify(cart));
           showToast(`Added "${product.title}" to cart`);
@@ -108,12 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // -----------------------------------
-      // RECOMMENDED PRODUCTS — 2 ROWS OF 4, NO IMAGES
+      // RECOMMENDED PRODUCTS
       // -----------------------------------
       renderRecommendedProducts(products, product);
     })
     .catch((err) => {
-      console.error("Failed to load products:", err);
+      console.error("Failed to load products from database:", err);
       noProductMessage.innerHTML = "<h2>Error Loading Products</h2>";
       noProductMessage.classList.remove("hidden");
       recommendedSection.classList.add("hidden");
