@@ -10,7 +10,7 @@ Users can browse products, search by category, manage a shopping cart, create ac
 
 ## Live Demo
 
-Play the project here:  
+Try the live application here:  
 **https://deals-n-discounts.onrender.com/**
 
 > Note: This project is hosted on Render’s free tier, so the first load may take a few seconds while the server wakes up.
