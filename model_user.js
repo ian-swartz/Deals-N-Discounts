@@ -1,15 +1,15 @@
 /*
- * Author: John Hershey, Collin Donnan
+ * Author: John Hershey, Collin Donnan, Ian Swartz
  * Creation Date: 2025-11-11
- * Last Edit Date: 2025-12-05
+ * Last Edit Date: 2026-05-23
  * Class: CMSC 421 Web Development
  * Description: code for mongodb login schema part of website, based on Dr X's example
  */
 const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://db_user_1:dIv4stk44rAE1CCs@cluster0.j2fdqzg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-);
+
+// REMOVED THE HARDCODED CONNECT STRING THAT WAS HIJACKING THE ROUTE
+
 const Schema = mongoose.Schema;
 
 const User = new Schema({
@@ -19,4 +19,5 @@ const User = new Schema({
 });
 User.plugin(passportLocalMongoose);
 
+// This exports the model so app.js can use the existing MONGODB_URI connection
 module.exports = mongoose.model("userinfos", User);
