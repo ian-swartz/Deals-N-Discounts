@@ -1,6 +1,6 @@
 /*
  * Filename: app.js
- * Authors: Collin Donnan, John Hershey, Jacob Karasow
+ * Authors: Collin Donnan, John Hershey, Jacob Karasow, Ian Swartz
  * Creation Date: 2025-11-14
  * Last Edit Date: 2026-05-23
  * Class: CMSC 421 Web Development
