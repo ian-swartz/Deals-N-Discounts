@@ -1,20 +1,23 @@
 {
-  "name": "html-css",
+  "name": "deals-n-discounts",
   "version": "1.0.0",
   "description": "Deals N' Discounts is a full stack e-commerce application. Users can browse products, search different categories, add items to a cart, and order items in their cart. Once ordered, the items stock is updated in the database. This project was developed for Millersville University's CMSC 421(Advanced Web Development). ",
-  "main": "index.html",
+  "main": "app.js",
   "scripts": {
-    "start": "serve"
+    "start": "node app.js"
   },
-  "keywords": ["html", "css"],
-  "author": "Ives van Hoorne",
+  "keywords": [
+    "html",
+    "css",
+    "express",
+    "mongodb"
+  ],
+  "author": "Collin Donnan, John Hershey, Jacob Karasow, Ian Swartz",
   "license": "MIT",
-  "devDependencies": {
-    "serve": "11.2.0"
-  },
   "dependencies": {
     "body-parser": "^2.2.0",
     "connect-ensure-login": "^0.1.1",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
