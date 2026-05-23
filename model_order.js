@@ -22,6 +22,7 @@ const OrderSchema = new Schema({
   items: [
     {
       product_id: { type: Number, required: true },
+      title: { type: String, required: true }, 
       quantity: { type: Number, required: true },
       price_cents: { type: Number, required: true },
     },
