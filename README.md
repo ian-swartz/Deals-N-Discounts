@@ -11,7 +11,9 @@ Users can browse products, search by category, manage a shopping cart, create ac
 ## Live Demo
 
 Play the project here:  
-**CODESANDBOX OR RENDER LINK GOES HERE**
+**https://deals-n-discounts.onrender.com/**
+
+> Note: This project is hosted on Render’s free tier, so the first load may take a few seconds while the server wakes up.
 
 ---
 
@@ -70,12 +72,12 @@ Play the project here:
 
 ## Deployment
 
-The application is deployed as a full-stack Node/Express web service on CodeSandbox (and possibly Render). **CHANGE THIS**
+The application is deployed as a full-stack Node/Express web service on Render.
 
 - Frontend is served from the Express server
-- Backend API routes are hosted on the same CodeSandbox (or Render) service **CHANGE THIS**
+- Backend API routes are hosted on the same Render service
 - MongoDB Atlas is used for persistent product, user, and order data
-- Environment variables are managed through CodeSandbox (or Render) **CHANGE THIS**
+- Environment variables are managed through Render
 
 ---
 
