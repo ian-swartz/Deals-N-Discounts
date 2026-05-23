@@ -161,29 +161,36 @@ This project is deployed as a live portfolio application and is actively maintai
 ## Running the project
 
 You can view the live, production version of this application hosted on Render here: 
-**[Live Demo Link](https://deals-n-discounts.onrender.com)**
+**https://deals-n-discounts.onrender.com**
+
 
 To set up the project locally for development and testing, follow the steps below.
 
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) (v16+ recommended) and git installed on your machine.
 
+
 ### Local Setup Instructions
 
 1. **Clone the Repository:**
+
    ```bash
    git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/ian-swartz/Deals-N-Discounts.git)
    cd Deals-N-Discounts
    ```
 
-2. **Install Dependencies:**
+3. **Install Dependencies:**
+
 Install the required Node.js middleware packages (including Express, Mongoose, Passport, and Dotenv):
+
     ```bash
     npm install
     ```
 
-3. **Configure Environment Variables:**
+5. **Configure Environment Variables:**
+
 Create a file named ```.env``` in the root directory of the project and add your secure configuration credentials:
+
     ```bash
     PORT=5000
     MONGODB_URI=your_mongodb_atlas_connection_string
@@ -191,17 +198,22 @@ Create a file named ```.env``` in the root directory of the project and add your
     ```
     > Note: The ```.env``` file is within the ```.gitignore``` in order to protect database credentials from the public.
 
-4. **RUN the Application:**
+7. **RUN the Application:**
+   
 Start the Express server locally:
+
     ```bash
     npm start
     ```
 
-5. **Access the Storefront:**
+9. **Access the Storefront:**
+    
 Open your preferred web browser and navigate to:
+
     ```
     https://localhost:5000
     ```
+
 
 ---
 
@@ -211,8 +223,8 @@ Open your preferred web browser and navigate to:
 - Implemented MongoDB Atlas integration
   - Had to relink to database
   - Restructured so the connect string (secret) wasn't hard coded/visible 
-- When users register then no longer have to relogin
-- Fixed some styling and bugs regarding linking to the database
+- When users register they no longer have to relogin
+- Fixed some styling, formatting, and bugs regarding linking to the database
 
 ---
 
