@@ -113,7 +113,8 @@ app.post("/login", (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) return next(err);
-      return res.redirect("/login.html");
+      // FIX: Redirect directly to the storefront root instead of back to login layout
+      return res.redirect("/");
     });
   })(req, res, next);
 });
