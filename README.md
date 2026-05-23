@@ -25,9 +25,6 @@ Play the project here:
 ### Product Page
 ![Product](images/screenshots/product.png)
 
-### Products Page
-![Products](images/screenshots/products-page.png)
-
 ### Cart Page
 ![My Cart](images/screenshots/cart.png)
 
