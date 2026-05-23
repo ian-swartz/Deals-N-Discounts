@@ -42,7 +42,28 @@ if (!dbURI) {
 console.log("Target Cluster Domain:", dbURI.split("@")[1] || "No domain found");
 
 mongoose.connect(dbURI)
-  .then(() => console.log("Connected to MongoDB Atlas successfully."))
+  .then(async () => {
+    console.log("Connected to MongoDB Atlas successfully.");
+
+    // AUTOMATIC SEEDER: Check if the products collection is empty. If it is, seed it from the JSON file!
+    try {
+      const count = await Product.countDocuments();
+      if (count === 0) {
+        console.log("Product database collection is empty. Parsing and seeding from products_real_titles.json...");
+        const productsFilePath = path.join(__dirname, "products_real_titles.json");
+        const raw = fs.readFileSync(productsFilePath, "utf8");
+        const data = JSON.parse(raw);
+
+        // data.items matches your structural array of 100 products exactly
+        await Product.insertMany(data.items);
+        console.log(`Database successfully populated with ${data.items.length} products.`);
+      } else {
+        console.log(`Products collection already populated with ${count} items. Skipping seeding.`);
+      }
+    } catch (seedErr) {
+      console.error("Error checked/seeding product collection:", seedErr);
+    }
+  })
   .catch((err) => console.error("Database connection failed:", err));
 
 app.use(
@@ -129,6 +150,41 @@ app.get("/login", (req, res) => {
 app.get("/user", connectEnsureLogin.ensureLoggedIn(), (req, res) =>
   res.send({ user: req.user })
 );
+
+// ************************* GET PRODUCTS FROM DATABASE WITH SORTING *******************************
+app.get("/products", async (req, res) => {
+  try {
+    const { category, sort } = req.query;
+    let queryFilter = {};
+
+    // Filter by category if requested (e.g. /products?category=Books)
+    if (category) {
+      queryFilter["fields.category"] = category;
+    }
+
+    // Initialize the MongoDB query path
+    let productQuery = Product.find(queryFilter);
+
+    // Apply sorting logic against properties inside the nested fields object
+    if (sort === "price_asc") {
+      productQuery = productQuery.sort({ "fields.price": 1 });
+    } else if (sort === "price_desc") {
+      productQuery = productQuery.sort({ "fields.price": -1 });
+    } else if (sort === "title_asc") {
+      productQuery = productQuery.sort({ "fields.title": 1 });
+    } else if (sort === "title_desc") {
+      productQuery = productQuery.sort({ "fields.title": -1 });
+    } else if (sort === "rating_desc") {
+      productQuery = productQuery.sort({ "fields.rating": -1 });
+    }
+
+    const itemsList = await productQuery.exec();
+    res.json(itemsList);
+  } catch (error) {
+    console.error("Error retrieving sorted database products:", error);
+    res.status(500).json({ message: "Failed to get storefront items." });
+  }
+});
 
 // ************************* ORDERS TO DATABASE *******************************
 app.post("/orders", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
