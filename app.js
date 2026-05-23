@@ -2,7 +2,7 @@
  * Filename: app.js
  * Authors: Collin Donnan, John Hershey, Jacob Karasow
  * Creation Date: 2025-11-14
- * Last Edit Date: 2026-05-22
+ * Last Edit Date: 2026-05-23
  * Class: CMSC 421 Web Development
  * Description: contains code for accessing and running website backend securely configured for Render
  */
@@ -37,6 +37,9 @@ if (!dbURI) {
   console.error("CRITICAL ERROR: MONGODB_URI environment variable is missing!");
   process.exit(1);
 }
+
+// DIAGNOSTIC LOG: Safely logs out the cluster name to the Render console without exposing your password
+console.log("Target Cluster Domain:", dbURI.split("@")[1] || "No domain found");
 
 mongoose.connect(dbURI)
   .then(() => console.log("Connected to MongoDB Atlas successfully."))
