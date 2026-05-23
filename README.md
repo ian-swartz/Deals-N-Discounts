@@ -152,8 +152,6 @@ This project is deployed as a live portfolio application and is actively maintai
 ├── script.js
 ├── Sources.txt
 └── yarn.lock
-
-
 ```
 
 ---
